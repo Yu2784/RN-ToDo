@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import { StyleSheet, View, Button, FlatList } from "react-native";
+import { StyleSheet, View, Button, FlatList, Alert } from "react-native";
 import GoalItem from "./components/GoalItem";
 import GoalInput from "./components/GoalInput";
 
@@ -9,13 +9,11 @@ export default function App() {
   const [isAddMode, setIsAddMode] = useState(false);
 
   const addGoalHandler = (goalItem) => {
-    if (goalItem != "") {
-      setSavedGoals((currentGoals) => [
-        ...currentGoals,
-        { id: Math.random().toString(), value: goalItem },
-      ]);
-      setIsAddMode(false);
-    }
+    setSavedGoals((currentGoals) => [
+      ...currentGoals,
+      { id: Math.random().toString(), value: goalItem },
+    ]);
+    setIsAddMode(false);
   };
 
   const removeGoalHandler = (goalid) => {
