@@ -17,18 +17,26 @@ export default function App() {
   const addGoalHandler = (goalItem) => {
     setSavedGoals((currentGoals) => [
       ...currentGoals,
-      { key: Math.random().toString(), value: goalItem },
+      { id: Math.random().toString(), value: goalItem },
     ]);
   };
+
+  const removeGoalHandler = (goalid) => {
+    setSavedGoals((currentGoals) => {
+      return currentGoals.filter((goal) => goal.id != goalid);
+    });
+  };
+
   return (
     <View style={styles.screen}>
       <GoalInput onAddGoal={addGoalHandler} />
       <FlatList
-        keyExtractor={(item, index) => item.key}
+        keyExtractor={(item, index) => item.id}
         data={savedGoals}
         renderItem={(itemData) => (
           <GoalItem
-            onDelete={() => console.log("Delete")}
+            onDelete={removeGoalHandler}
+            id={itemData.item.id}
             item={itemData.item.value}
           />
         )}
